@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portfolio | Chrome Design Studio</title>
+
+    <style>
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =========================================
+           BODY
+        ========================================= */
+
+        body {
+            background: #f5f5f5;
+            color: #222;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           MAIN LAYOUT
+        ========================================= */
+
+        section {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .col-33 {
+            flex: 1;
+            min-width: 0;
+            padding: 40px 30px 40px 0;
+        }
+
+        .col-66 {
+            flex: 2;
+            min-width: 0;
+            padding: 40px 0 40px 40px;
+        }
+
+
+        /* =========================================
+           TYPOGRAPHY
+        ========================================= */
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1.25;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #111;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: 0 0 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #222;
+            color: #111;
+            font-size: 1.35rem;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            margin-bottom: 12px;
+            color: #222;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-bottom: 18px;
+        }
+
+        ul {
+            margin: 0 0 30px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================================
+           LINKS
+        ========================================= */
+
+        a {
+            color: #1769aa;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0b4f82;
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           PORTFOLIO
+        ========================================= */
+
+        .portfolio-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .portfolio-list li {
+            margin-bottom: 12px;
+        }
+
+        .portfolio-list a {
+            display: block;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #fff;
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .portfolio-list a:hover {
+            border-color: #aaa;
+            background: #f0f0f0;
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           PROJECT GRID
+        ========================================= */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+            margin-bottom: 45px;
+        }
+
+
+        /* =========================================
+           PROJECT CARD
+        ========================================= */
+
+        .project-card {
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card > a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           PROJECT IMAGE
+        ========================================= */
+
+        .project-preview {
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .project-preview img {
+            display: block;
+            width: 100%;
+
+            transition:
+                transform 0.3s ease;
+        }
+
+        .project-card:hover .project-preview img {
+            transform: scale(1.03);
+        }
+
+
+        /* =========================================
+           PROJECT CONTENT
+        ========================================= */
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-content h3 {
+            margin-bottom: 8px;
+            color: #111;
+        }
+
+        .project-content p {
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        .project-date {
+            color: #777 !important;
+            font-size: 0.9rem;
+        }
+
+
+        /* =========================================
+           PROFILE / CONTACT
+        ========================================= */
+
+        .profile {
+            margin-top: 10px;
+        }
+
+        .profile h1 {
+            margin-bottom: 8px;
+        }
+
+        .contact {
+            margin-bottom: 35px;
+        }
+
+        .contact h3 {
+            margin-bottom: 5px;
+            font-weight: normal;
+        }
+
+
+        /* =========================================
+           PROFESSIONAL PROFILE
+        ========================================= */
+
+        .professional-profile {
+            margin-top: 35px;
+        }
+
+        .professional-profile ul {
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================
+           COLUMN SEPARATOR
+        ========================================= */
+
+        .border-left {
+            border-left: 1px solid #ddd;
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            padding: 25px 0;
+
+            border-top: 1px solid #ddd;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .container {
+                width: 90%;
+            }
+
+            section {
+                flex-direction: column;
+            }
+
+            .col-33,
+            .col-66 {
+                width: 100%;
+                padding: 30px 0;
+            }
+
+            .border-left {
+                border-left: none;
+                border-top: 1px solid #ddd;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+
+        /* =========================================
+           SMALL MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 90%;
+            }
+
+            .col-33,
+            .col-66 {
+                padding: 25px 0;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .project-content {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
+        <section>
+
+            <!-- =====================================
+                 LEFT COLUMN
+            ====================================== -->
+
+            <div class="col-33">
+
+                <h2>O mně</h2>
+
+                <p>
+                    Jsem začínající front-end developer, který se zaměřuje
+                    na HTML, CSS a JavaScript a aktuálně rozvíjí své znalosti
+                    v Reactu. Tvořím vlastní webové projekty a interaktivní
+                    komponenty, při kterých pracuji s DOM, událostmi,
+                    formuláři, daty a uživatelským rozhraním.
+                </p>
+
+                <p>
+                    Hledám juniorskou nebo trainee pozici, kde bych mohl své
+                    dosavadní znalosti využít v praxi, učit se od zkušenějších
+                    kolegů a postupně se zapojovat do vývoje skutečných projektů.
+                </p>
+
+
+                <!-- <h2>Portfolio</h2>
+
+                <ul class="portfolio-list">
+
+                    <li>
+                        <a
+                            href="https://user42068.github.io/chrome-design-studio/landing2/index.html"
+                            target="_blank">
+                            Landing page 2
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="https://user42068.github.io/chrome-design-studio/landing3/index.html"
+                            target="_blank">
+                            Landing page 3
+                        </a>
+                    </li>
+
+                </ul> -->
+
+            </div>
+
+
+            <!-- =====================================
+                 RIGHT COLUMN
+            ====================================== -->
+
+            <div class="col-66 border-left">
+
+                <h1>Projekty</h1>
+
+
+                <div class="projects-grid">
+
+                    <!-- PROJECT 1 -->
+
+                    <article class="project-card">
+
+                        <a href="projekty/staticky-web.html">
+
+                            <div class="project-preview">
+
+                                <img
+                                    src="img/static-web.png"
+                                    alt="Náhled projektu">
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <h3>
+                                    Zprovoznění statického webu
+                                </h3>
+
+                                <p class="project-date">
+                                    19. 9. 2026
+                                </p>
+
+                                <p>
+                                    Dokončeno: oprava nefunkčních prvků
+                                    a kontrola JavaScriptu.
+                                </p>
+
+                                <p>
+                                    Další úkol: refaktorizace komponent.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- PROJECT 2 -->
+
+                    <article class="project-card">
+
+                        <a href="landing-page-verbose/index.html">
+
+                            <div class="project-preview">
+
+                                <img
+                                    src="img/landing-page-verbose.png"
+                                    alt="Náhled projektu">
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <h3>
+                                    Oprava verbose kódu
+                                </h3>
+
+                                <p class="project-date">
+                                    19. 9. 2026
+                                </p>
+
+                                <p>
+                                    Dokončeno: kód obnoven ze zálohy
+                                    na Google Disku a připraven
+                                    k další analýze.
+                                </p>
+
+                                <p>
+                                    Další úkol: prověřit strukturu
+                                    a pojmenování souborů v kontextu
+                                    grafického manuálu.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- PROJECT 3 -->
+
+                    <article class="project-card">
+
+                        <a href="eshop-architecture/index.html">
+
+                            <div class="project-preview">
+
+                                <img
+                                    src="img/eshop-architecture.png"
+                                    alt="Náhled projektu">
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <h3>
+                                    Analýza architektury e-shopu
+                                </h3>
+
+                                <p class="project-date">
+                                    19. 9. 2026
+                                </p>
+
+                                <p>
+                                    Dokončeno: vytvořena čistá verze
+                                    kódu, provedena analýza uživatelských
+                                    akcí a funkcí, které na jednotlivé
+                                    akce reagují.
+                                </p>
+
+                                <p>
+                                    Další úkol: provést detailní rozbor
+                                    funkce renderDetail() a navazujících
+                                    funkcí včetně jejich vzájemných vazeb
+                                    a toku dat.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+
+                    <!-- PROJECT 4 -->
+
+                    <article class="project-card">
+
+                        <a href="projekty/staticky-web.html">
+
+                            <div class="project-preview">
+
+                                <img
+                                    src="img/javascript-components.png"
+                                    alt="Náhled projektu">
+
+                            </div>
+
+
+                            <div class="project-content">
+
+                                <h3>
+                                    JS komponenty
+                                </h3>
+
+                                <p class="project-date">
+                                    19. 9. 2026
+                                </p>
+
+                                <p>
+                                    Dokončeno: všech 16 komponent
+                                    seskupeno do jednoho HTML souboru.
+                                    Upraveno zarovnání komponent
+                                    k hornímu a dolnímu okraji.
+                                </p>
+
+                                <p>
+                                    Další úkol: postupně znovu implementovat
+                                    JavaScriptovou funkcionalitu jednotlivých
+                                    komponent a procvičit jejich ovládání
+                                    prostřednictvím DOM API a konzole.
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </article>
+
+                </div>
+
+
+                <!-- =====================================
+                     PROFILE
+                ====================================== -->
+
+                <div class="profile">
+
+                    <h1>
+                        Tomáš Turek
+                    </h1>
+
+                    <div class="contact">
+
+                        <h3>
+                            Praha
+                        </h3>
+
+                        <h3>
+                            +420 608 744 371
+                        </h3>
+
+                        <h3>
+                            turektomas68@gmail.com
+                        </h3>
+
+                    </div>
+
+
+                    <div class="professional-profile">
+
+                        <h2>
+                            Praktická zkušenost s webovým vývojem
+                        </h2>
+
+                        <p>
+                            Samostatně pracuji na analýze, opravách a postupném
+                            rozšiřování existujících webových projektů. Zaměřuji
+                            se především na HTML, CSS a JavaScript a na porozumění
+                            tomu, jak jednotlivé části aplikace spolupracují.
+                        </p>
+
+                        <p>
+                            V rámci vlastních projektů se věnuji zejména:
+                        </p>
+
+                        <ul>
+
+                            <li>
+                                obnově a zprovoznění nefunkčního nebo
+                                rozpracovaného webového kódu,
+                            </li>
+
+                            <li>
+                                identifikaci nesrovnalostí mezi strukturou
+                                projektu, názvy souborů a jejich použitím v kódu,
+                            </li>
+
+                            <li>
+                                refaktorizaci a zpřehledňování
+                                zbytečně komplikovaného kódu,
+                            </li>
+
+                            <li>
+                                analýze architektury SPA e-shopu a sledování
+                                vazeb mezi uživatelskými akcemi
+                                a JavaScriptovými funkcemi,
+                            </li>
+
+                            <li>
+                                práci s DOM a JavaScriptovými komponentami,
+                            </li>
+
+                            <li>
+                                vytváření a úpravám responzivních
+                                HTML/CSS komponent,
+                            </li>
+
+                            <li>
+                                systematickému dokumentování dokončených úkolů
+                                a plánování dalších kroků.
+                            </li>
+
+                        </ul>
+
+                        <p>
+                            U projektů se nesoustředím pouze na výsledný vzhled,
+                            ale také na pochopení struktury kódu, jeho funkcí
+                            a vzájemných vazeb. Projekty průběžně ukládám
+                            do GitHubu a používám je jako praktický základ
+                            pro další studium front-end vývoje.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <section class="footer">
+
+            <p>
+                © <span id="year">2026</span>
+                Chrome Design Studio
+            </p>
+
+        </section>
+
+    </div>
+
+
+    <script>
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
