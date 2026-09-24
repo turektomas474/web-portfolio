@@ -30,6 +30,11 @@
             line-height: 1.6;
         }
 
+        /* zamezí posouvání stránky pod otevřeným modalem */
+        body.modal-open {
+            overflow: hidden;
+        }
+
 
         /* =========================================
            MAIN CONTAINER
@@ -125,6 +130,9 @@
         }
 
 
+
+
+
         /* =========================================
            PORTFOLIO
         ========================================= */
@@ -193,6 +201,16 @@
             display: block;
             color: inherit;
             text-decoration: none;
+        }
+
+        /* karta, která otevírá modal */
+        .project-card > a.pdf-trigger {
+            cursor: zoom-in;
+        }
+
+        .project-card > a.pdf-trigger:focus-visible {
+            outline: 3px solid #1769aa;
+            outline-offset: -3px;
         }
 
 
@@ -309,6 +327,146 @@
 
 
         /* =========================================
+           MODAL (PDF PŘEKRYV)
+        ========================================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+
+            background: rgba(0, 0, 0, 0.7);
+            animation: modal-fade 0.2s ease;
+        }
+
+        .modal[hidden] {
+            display: none;
+        }
+
+        .modal-dialog {
+            display: flex;
+            flex-direction: column;
+
+            width: min(1000px, 100%);
+            height: min(90vh, 100%);
+
+            overflow: hidden;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+
+            animation: modal-rise 0.25s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+            background: #fafafa;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1rem;
+            color: #111;
+        }
+
+        .modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .modal-external {
+            font-size: 0.9rem;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #fff;
+            color: #222;
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            border-color: #999;
+            background: #f0f0f0;
+        }
+
+        .modal-close:focus-visible,
+        .modal-external:focus-visible {
+            outline: 3px solid #1769aa;
+            outline-offset: 2px;
+        }
+
+        .modal-body {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+            background: #e9e9e9;
+        }
+
+        .modal-status {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+
+            color: #555;
+            text-align: center;
+        }
+
+        .modal-frame {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: transparent;
+        }
+
+        @keyframes modal-fade {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes modal-rise {
+            from { transform: translateY(12px); }
+            to   { transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .modal,
+            .modal-dialog {
+                animation: none;
+            }
+        }
+
+
+        /* =========================================
            RESPONSIVE
         ========================================= */
 
@@ -366,12 +524,24 @@
             .project-content {
                 padding: 16px;
             }
+
+            .modal {
+                padding: 0;
+            }
+
+            .modal-dialog {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
         }
     </style>
 </head>
 
 
 <body>
+
+    
 
     <div class="container">
 
@@ -403,6 +573,38 @@
                     kolegů a postupně se zapojovat do vývoje skutečných projektů.
                 </p>
 
+                <h2>Kontakt</h2>
+
+                <p>
+                    Tomáš Turek, Praha
+                </p>
+
+                <p>
+                    turektomas474@gmail.com
+                </p>
+
+                    <!-- KARTA S KATALOGEM – otevírá PDF v modalu.
+                         Bez JavaScriptu odkaz otevře PDF na GitHubu v nové záložce. -->
+                    <article class="project-card">
+
+                        <a
+                            href="https://github.com/turektomas474/graphic-design-catalog/blob/main/katalog_opraveny-chyby.pdf"
+                            class="pdf-trigger"
+                            data-modal-target="pdf-modal"
+                            target="_blank"
+                            rel="noopener"
+                            aria-haspopup="dialog"
+                            aria-label="Otevřít katalog grafických prací (PDF)">
+
+                            <div class="project-preview">
+                                <img
+                                    src="img/katalog_str01.jpg"
+                                    alt="Katalog grafických prací">
+                            </div>
+
+                        </a>
+
+                    </article>
 
                 <!-- <h2>Portfolio</h2>
 
@@ -625,7 +827,7 @@
 
                 <div class="profile">
 
-                    <h1>
+                    <!-- <h1>
                         Tomáš Turek
                     </h1>
 
@@ -643,7 +845,7 @@
                             turektomas68@gmail.com
                         </h3>
 
-                    </div>
+                    </div> -->
 
 
                     <div class="professional-profile">
@@ -735,11 +937,208 @@
     </div>
 
 
+    <!-- =====================================
+         MODAL – PDF KATALOG
+    ====================================== -->
+
+    <div
+        id="pdf-modal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="pdf-modal-title"
+        hidden>
+
+        <div class="modal-dialog">
+
+            <div class="modal-header">
+
+                <h2 id="pdf-modal-title" class="modal-title" style="border:0;padding:0;margin:0;text-transform:none;font-size:1rem;">
+                    Katalog grafických prací
+                </h2>
+
+                <div class="modal-actions">
+
+                    <a
+                        id="pdf-modal-external"
+                        class="modal-external"
+                        href="#"
+                        target="_blank"
+                        rel="noopener">
+                        Otevřít na GitHubu
+                    </a>
+
+                    <button
+                        type="button"
+                        class="modal-close"
+                        aria-label="Zavřít katalog">
+                        &times;
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p class="modal-status" id="pdf-modal-status">
+                    Načítám PDF…
+                </p>
+
+                <iframe
+                    id="pdf-modal-frame"
+                    class="modal-frame"
+                    title="Katalog grafických prací (PDF)"></iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
     <script>
         document.getElementById("year").textContent =
             new Date().getFullYear();
+
+
+        /* =========================================
+           MODAL S PDF
+        ========================================= */
+
+        (function () {
+
+            /*
+             * GitHub URL typu /blob/ nejde vložit do iframe
+             * (GitHub to blokuje), proto se v iframe používá adresa
+             * přes CDN jsDelivr, která servíruje soubor přímo
+             * z repozitáře (repozitář musí být veřejný).
+             *
+             * Formát: https://cdn.jsdelivr.net/gh/UŽIVATEL/REPO@VĚTEV/SOUBOR
+             *
+             * Po nahrazení PDF v repozitáři může jsDelivr několik hodin
+             * držet starou verzi. Cache lze smazat otevřením:
+             * https://purge.jsdelivr.net/gh/turektomas474/graphic-design-catalog@main/katalog_opraveny-chyby.pdf
+             *
+             * Odkaz "Otevřít na GitHubu" používá původní /blob/ URL,
+             * takže funguje vždy.
+             */
+            const PDF_EMBED_URL =
+                "https://cdn.jsdelivr.net/gh/turektomas474/graphic-design-catalog@main/katalog_opraveny-chyby.pdf";
+
+            const PDF_GITHUB_URL =
+                "https://github.com/turektomas474/graphic-design-catalog/blob/main/katalog_opraveny-chyby.pdf";
+
+
+            const modal    = document.getElementById("pdf-modal");
+            const frame    = document.getElementById("pdf-modal-frame");
+            const status   = document.getElementById("pdf-modal-status");
+            const external = document.getElementById("pdf-modal-external");
+            const closeBtn = modal.querySelector(".modal-close");
+            const triggers = document.querySelectorAll("[data-modal-target='pdf-modal']");
+
+            let lastFocused = null;
+
+
+            external.href = PDF_GITHUB_URL;
+
+
+            function openModal(trigger) {
+                lastFocused = trigger;
+
+                // PDF se načte až při otevření (šetří data při načtení stránky)
+                status.hidden = false;
+                status.textContent = "Načítám PDF…";
+                frame.classList.remove("is-loaded");
+                frame.src = PDF_EMBED_URL;
+
+                modal.hidden = false;
+                document.body.classList.add("modal-open");
+
+                closeBtn.focus();
+            }
+
+
+            function closeModal() {
+                modal.hidden = true;
+                document.body.classList.remove("modal-open");
+
+                // vyprázdnění iframe zastaví načítání a uvolní paměť
+                frame.removeAttribute("src");
+                frame.classList.remove("is-loaded");
+
+                if (lastFocused) {
+                    lastFocused.focus();
+                }
+            }
+
+
+            // otevření kliknutím na kartu
+            triggers.forEach(function (trigger) {
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    openModal(trigger);
+                });
+            });
+
+
+            // zavření tlačítkem
+            closeBtn.addEventListener("click", closeModal);
+
+
+            // zavření kliknutím na tmavé pozadí
+            modal.addEventListener("click", function (event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+
+            // PDF je načtené → zobrazit iframe
+            frame.addEventListener("load", function () {
+                if (!frame.getAttribute("src")) {
+                    return;
+                }
+
+                status.hidden = true;
+                frame.classList.add("is-loaded");
+            });
+
+
+            // klávesnice: Esc zavře modal, Tab zůstává uvnitř modalu
+            document.addEventListener("keydown", function (event) {
+
+                if (modal.hidden) {
+                    return;
+                }
+
+                if (event.key === "Escape") {
+                    closeModal();
+                    return;
+                }
+
+                if (event.key === "Tab") {
+                    const focusable = modal.querySelectorAll(
+                        "a[href], button:not([disabled]), iframe"
+                    );
+
+                    const first = focusable[0];
+                    const last  = focusable[focusable.length - 1];
+
+                    if (event.shiftKey && document.activeElement === first) {
+                        event.preventDefault();
+                        last.focus();
+                    } else if (!event.shiftKey && document.activeElement === last) {
+                        event.preventDefault();
+                        first.focus();
+                    }
+                }
+            });
+
+        })();
     </script>
 
 </body>
 
 </html>
+
